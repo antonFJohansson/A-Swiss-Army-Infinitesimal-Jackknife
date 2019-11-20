@@ -30,7 +30,7 @@ def get_predictions(x, theta):
   return y_data
 
 
-def get_widehat_theta(x_data, y_data, max_epoch = 150, lr = 1e-3, plot_res = True):
+def get_widehat_theta(x_data, y_data, remove_ind = None, max_epoch = 150, lr = 1e-3, plot_res = True):
     
     ## So this should work in some way
 
@@ -38,6 +38,14 @@ def get_widehat_theta(x_data, y_data, max_epoch = 150, lr = 1e-3, plot_res = Tru
     
     theta_prop = np.random.normal(0,1,x_data.shape[1] + 1)
     grad_loss = grad(loss_func)
+    
+    if remove_ind is not None:
+        mask = np.ones(x_data.shape[0]).astype('int')
+        mask[remove_ind] = 0
+        x_data = x_data[mask == 1,:]
+        y_data = y_data[mask == 1]
+    
+    
     
     for epoch in range(max_epoch):
       gradient = grad_loss(theta_prop, x_data, y_data) ## but maybe I can just insert what I want here?

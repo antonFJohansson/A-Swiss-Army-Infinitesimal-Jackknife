@@ -24,15 +24,6 @@ def generate_data_points(num_data_train, num_features, plot_points = False):
       class_vector = np.random.binomial(1,y_prob)
       return class_vector
     
-    def get_predictions(x, theta):
-    
-      y_prob = logistic(np.sum(x_data * theta[:-1], axis = 1) + theta[-1])
-      one_class = np.where(y_prob > 0.5)
-      class_vec = np.zeros(num_data_train)
-      class_vec[one_class] = 1
-      y_data = class_vec
-      return y_data
-    
     
     y_data = generate_y(x_data, theta)
     
